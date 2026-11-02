@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pomegranate House — Content Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf6f1; --surface:#ffffff; --surface-2:#f3ebe1; --fg:#231513; --muted:#8a7a70;
+    --accent:#8c2a3a; --accent-ink:#ffffff; --border:#e8ddd0; --ink:#2c1c17; --ink-tint:#efe4d8;
+    --good:#3f7a4a; --good-tint:#eaf3ea; --warn:#9c5a12; --warn-tint:#faf0e2;
+    --block:#9c2a2a; --block-tint:#f6e9e9; --rest:#6b6460; --rest-tint:#f0ece7;
+    --tint:#f3e7e2; --shadow:0 1px 2px rgba(35,21,19,.05), 0 8px 24px -14px rgba(35,21,19,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#17100f; --surface:#211714; --surface-2:#271c18; --fg:#f3ece6; --muted:#b7a89f;
+      --accent:#e0566a; --accent-ink:#1a0d0f; --border:#3a2a26; --ink:#f3ece6; --ink-tint:#3a2b24;
+      --good:#6fcf7f; --good-tint:#1c2b1e; --warn:#e3a35a; --warn-tint:#2e230f;
+      --block:#e07a7a; --block-tint:#2e1c1c; --rest:#9a908a; --rest-tint:#241d1a;
+      --tint:#2e1c1d; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -14px rgba(0,0,0,.5); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#17100f; --surface:#211714; --surface-2:#271c18; --fg:#f3ece6; --muted:#b7a89f;
+    --accent:#e0566a; --accent-ink:#1a0d0f; --border:#3a2a26; --ink:#f3ece6; --ink-tint:#3a2b24;
+    --good:#6fcf7f; --good-tint:#1c2b1e; --warn:#e3a35a; --warn-tint:#2e230f;
+    --block:#e07a7a; --block-tint:#2e1c1c; --rest:#9a908a; --rest-tint:#241d1a;
+    --tint:#2e1c1d; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -14px rgba(0,0,0,.5); color-scheme: dark;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg); color:var(--fg); margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  .serif{font-family:'Fraunces',Georgia,serif}
+
+  /* ---------- shell ---------- */
+  .shell{display:flex; min-height:100vh}
+  .sidebar{
+    width:216px; flex:none; background:var(--surface-2); border-right:1px solid var(--border);
+    padding:22px 16px; display:flex; flex-direction:column; gap:26px; position:sticky; top:0; height:100vh; overflow:auto;
+  }
+  .brand{display:flex; flex-direction:column; gap:1px; padding:0 8px}
+  .brand-name{font-family:'Fraunces',serif; font-size:19px; font-weight:600}
+  .brand-sub{font-size:11px; color:var(--muted)}
+  .nav{display:flex; flex-direction:column; gap:2px}
+  .nav-item{font-size:13px; font-weight:500; padding:9px 10px; border-radius:9px; color:var(--muted); display:flex; align-items:center; gap:10px}
+  .nav-item .dot-ico{width:6px; height:6px; border-radius:50%; background:currentColor; flex:none; opacity:.55}
+  .nav-item.active{background:var(--surface); color:var(--fg); box-shadow:var(--shadow)}
+  .nav-item.active .dot-ico{background:var(--accent); opacity:1}
+  .topbar-mobile{display:none; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); background:var(--surface-2); position:sticky; top:0; z-index:5}
+
+  .main{flex:1; min-width:0}
+  .wrap{max-width:1180px; margin:0 auto; padding:30px 28px 60px; display:flex; flex-direction:column; gap:22px}
+
+  .headrow{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .eyebrow{font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 6px}
+  h1{font-size:30px; margin:0; font-weight:600; letter-spacing:-.01em}
+  .subtitle{font-style:italic; color:var(--muted); font-size:14.5px; margin:6px 0 0}
+
+  .range{display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:5px 6px 5px 14px; font-size:12.5px; font-weight:600; color:var(--muted); box-shadow:var(--shadow)}
+  .range-btn{width:26px; height:26px; border-radius:50%; border:1px solid var(--border); background:var(--bg); color:var(--muted); display:flex; align-items:center; justify-content:center; cursor:not-allowed; opacity:.5}
+
+  .pillbar{display:flex; gap:7px; flex-wrap:wrap}
+  .pill{font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer}
+  .pill.active{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+
+  /* ---------- next-post banner ---------- */
+  .next{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px 28px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; box-shadow:var(--shadow); border-left:2px solid var(--accent)}
+  .next-badge{font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); flex:none}
+  .next-main{flex:1; min-width:220px; display:flex; flex-direction:column; gap:4px}
+  .next-eyebrow{font-size:11.5px; color:var(--muted); letter-spacing:.02em; margin:0}
+  .next-title{font-family:'Fraunces',serif; font-size:20px; font-weight:500; margin:0; letter-spacing:-.01em; line-height:1.3}
+  .next-sub{font-size:13px; color:var(--muted); margin:0; line-height:1.5; font-style:italic}
+  .next-days{font-size:12px; font-weight:600; color:var(--muted); flex:none; letter-spacing:.02em}
+
+  /* ---------- week grid ---------- */
+  .week{display:grid; grid-template-columns:repeat(7, 1fr); gap:12px}
+  @media (max-width:980px){ .week{grid-template-columns:repeat(4, 1fr)} }
+  @media (max-width:620px){ .week{grid-template-columns:repeat(2, 1fr)} }
+
+  .day{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:10px;
+    display:flex; flex-direction:column; gap:9px; cursor:pointer; text-align:left;
+    font-family:inherit; color:var(--fg); position:relative; box-shadow:var(--shadow);
+  }
+  .day:hover{border-color:var(--accent); transform:translateY(-1px)}
+  .day.static:hover{border-color:var(--border); transform:none}
+  .day.dim{opacity:.35}
+  .day-top{display:flex; align-items:baseline; justify-content:space-between; padding:2px 4px 0}
+  .day-dow{font-size:10px; font-weight:700; letter-spacing:.08em; color:var(--muted)}
+  .day-num{font-family:'Fraunces',serif; font-size:17px; font-weight:600}
+
+  .day-media{position:relative; width:100%; aspect-ratio:3/4; border-radius:11px; overflow:hidden; background:var(--ink-tint)}
+  .day-media img{width:100%; height:100%; object-fit:cover; display:block}
+  .play-ov{position:absolute; inset:0; display:flex; align-items:center; justify-content:center}
+  .play-ov svg{width:34px; height:34px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+  .dur{position:absolute; right:6px; bottom:6px; background:rgba(20,12,10,.72); color:#fff; font-size:10px; font-weight:700; padding:2px 6px; border-radius:6px; font-variant-numeric:tabular-nums}
+  .media-empty{width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:19px; color:var(--muted)}
+
+  .day-info{display:flex; flex-direction:column; gap:7px; padding:0 2px 2px}
+  .day-job{font-size:12.5px; font-weight:600; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.6em}
+  .status{font-size:10px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:4px 8px; border-radius:7px; align-self:flex-start}
+  .status.ready{background:var(--good-tint); color:var(--good)}
+  .status.soon{background:var(--rest-tint); color:var(--muted)}
+
+  /* ---------- modal ---------- */
+  .overlay{position:fixed; inset:0; background:rgba(25,15,13,.52); display:flex; align-items:center; justify-content:center; padding:24px; z-index:50}
+  .overlay[hidden]{display:none}
+  .modal{background:var(--surface); border-radius:20px; max-width:1060px; width:100%; max-height:90vh; overflow:auto; border:1px solid var(--border); box-shadow:0 30px 70px -20px rgba(20,12,10,.4)}
+
+  .modal-head{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; padding:22px 26px 0; position:sticky; top:0; background:var(--surface); z-index:2}
+  .crumb{font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 10px}
+  .modal-title{font-family:'Fraunces',serif; font-size:25px; font-weight:600; margin:0 0 3px; letter-spacing:-.01em}
+  .modal-sub{font-style:italic; color:var(--muted); font-size:13.5px; margin:0}
+  .head-ctl{display:flex; align-items:center; gap:7px; flex:none}
+  .nav-btn{width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:var(--bg); color:var(--fg); cursor:pointer; display:flex; align-items:center; justify-content:center}
+  .nav-btn:disabled{opacity:.35; cursor:not-allowed}
+  .close{flex:none; background:var(--ink); color:var(--surface); border:none; border-radius:50%; width:32px; height:32px; font-size:15px; cursor:pointer}
+
+  .modal-body{padding:18px 26px 26px}
+  .simple-body{font-size:13.5px; line-height:1.6; padding-top:4px}
+  .simple-body .k{font-weight:700; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin:16px 0 4px}
+  .simple-body .k:first-child{margin-top:0}
+  .status-lg{display:inline-block; margin-top:2px}
+
+  .stack{display:flex; flex-direction:column; gap:22px; margin-top:6px}
+
+  .top-row{display:flex; gap:20px; align-items:flex-start}
+  @media (max-width:640px){ .top-row{flex-direction:column} }
+  .video-col{flex:none; width:260px}
+  @media (max-width:640px){ .video-col{width:100%; max-width:260px; margin:0 auto} }
+  .companion-col{flex:1; min-width:0; display:flex; flex-direction:column; gap:12px}
+
+  video{width:100%; display:block; border-radius:16px; background:transparent; aspect-ratio:9/16; object-fit:cover; max-height:none}
+
+  .card{background:var(--surface-2); border:1px solid var(--border); border-radius:13px; padding:13px 14px}
+  .now-time{font-size:10.5px; font-weight:700; letter-spacing:.05em; color:var(--accent); font-variant-numeric:tabular-nums; margin:0 0 4px; text-transform:uppercase}
+  .now-title{font-family:'Fraunces',serif; font-size:15px; font-weight:600; margin:0 0 8px}
+  .now-row{display:flex; gap:9px; font-size:12.5px; line-height:1.5; margin:0 0 7px}
+  .now-row:last-child{margin-bottom:0}
+  .now-icon{flex:none; width:20px; height:20px; border-radius:50%; background:var(--ink-tint); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--muted)}
+  .now-icon.b{color:var(--accent)}
+  .now-text b{display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:1px}
+
+  .icolist{display:flex; flex-direction:column; gap:0}
+  .ico-row{display:flex; gap:10px; align-items:flex-start; padding:8px 0; border-top:1px solid var(--border)}
+  .ico-row:first-child{border-top:none}
+  .ico-badge{flex:none; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:800; margin-top:1px}
+  .ico-badge.ok{background:var(--good-tint); color:var(--good)}
+  .ico-badge.free{background:var(--tint); color:var(--accent)}
+  .ico-text{font-size:12.5px; line-height:1.45}
+
+  .meta .k{font-weight:700; color:var(--muted); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; margin:16px 0 6px}
+  .meta .k:first-child{margin-top:0}
+  .caption-box{background:var(--surface-2); border:1px solid var(--border); border-radius:11px; padding:12px; font-size:12.5px; line-height:1.6; position:relative}
+  .copy-btn{position:absolute; top:8px; right:8px; font-size:10.5px; font-weight:700; background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 9px; cursor:pointer; color:var(--fg)}
+
+  .tabs{display:flex; gap:6px; margin-bottom:14px; background:var(--surface-2); padding:4px; border-radius:999px; border:1px solid var(--border)}
+  .tab{flex:1; text-align:center; font-size:12.5px; font-weight:600; padding:8px 6px; border-radius:999px; background:transparent; color:var(--muted); cursor:pointer}
+  .tab.active{background:var(--ink); color:var(--surface)}
+
+  .section-hint{font-size:12.5px; color:var(--muted); line-height:1.5; margin:0 0 12px}
+
+  .sb-row{display:flex; gap:11px; align-items:flex-start; width:100%; text-align:left; background:none; border:none; border-top:1px solid var(--border); padding:10px 0; font-family:inherit; color:var(--fg); cursor:pointer; border-radius:10px}
+  .sb-row:first-child{border-top:none}
+  .sb-row:active{opacity:.6}
+  .sb-row.active{background:var(--tint); padding-left:8px; padding-right:8px}
+  .sb-num{flex:none; width:22px; height:22px; border-radius:50%; background:var(--ink); color:var(--surface); font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:2px}
+  .sb-thumb{flex:none; width:46px; height:82px; object-fit:cover; border-radius:8px; border:1px solid var(--border); background:#000}
+  .sb-text{font-size:12.5px; line-height:1.42; padding-top:1px}
+  .sb-time{font-variant-numeric:tabular-nums; font-size:10.5px; font-weight:700; color:var(--accent); display:block; margin-bottom:2px}
+  .sb-title{font-weight:700; font-size:13px; display:block; margin-bottom:3px; font-family:'Fraunces',serif}
+  .sb-film{color:var(--muted)}
+  .sb-film b{color:var(--fg); font-weight:600}
+
+  .check{display:flex; gap:9px; align-items:flex-start; padding:8px 0; border-top:1px solid var(--border)}
+  .check:first-child{border-top:none}
+  .check input{margin-top:3px; width:16px; height:16px; accent-color:var(--accent); flex:none}
+  .check label{font-size:12.5px; line-height:1.4}
+  .check.done label{color:var(--muted); text-decoration:line-through}
+
+  .open-item{background:var(--warn-tint); color:var(--warn); border-radius:12px; padding:12px 13px; font-size:12px; line-height:1.55; margin:0 0 16px}
+  .open-item b{color:inherit}
+</style>
+</head>
+<body>
+
+<div class="topbar-mobile">
+  <span class="brand-name serif">Pomegranate House</span>
+</div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-name serif">Pomegranate House</span>
+      <span class="brand-sub">Content calendar</span>
+    </div>
+    <nav class="nav">
+      <span class="nav-item active"><span class="dot-ico"></span>Calendar</span>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <div class="wrap">
+      <div class="headrow">
+        <div>
+          <p class="eyebrow">Stella's Pomegranate House</p>
+          <h1 class="serif">Content calendar</h1>
+          <p class="subtitle">The last five post days before the market</p>
+        </div>
+        <div class="range">
+          <span class="range-btn" title="Only this week is built">&lsaquo;</span>
+          Nov 1 – Nov 7
+          <span class="range-btn" title="Only this week is built">&rsaquo;</span>
+        </div>
+      </div>
+
+      <div class="pillbar" id="pillbar"></div>
+
+      <div class="next" id="next"></div>
+
+      <div class="week" id="week"></div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+(function(){
+  var TODAY_TZ = "America/New_York";
+
+  var DAYS = [
+    { date:"2026-11-01", label:"Sun", job:"Inventory showcase: a snapshot of what's coming, with a save-the-date CTA.", status:"ready", hasPanel:true,
+      note:"Reference: reference 2.mp4. Moved up from the original Nov 6 slot (QC's call) so Stella has the week to film and post it. The closing CTA runs as on-screen text, not voiceover." },
+    { date:"2026-11-02", label:"Mon", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." },
+    { date:"2026-11-03", label:"Tue", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." },
+    { date:"2026-11-04", label:"Wed", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." },
+    { date:"2026-11-05", label:"Thu", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." },
+    { date:"2026-11-06", label:"Fri", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." },
+    { date:"2026-11-07", label:"Sat", job:"TBD", status:"tbd",
+      note:"TBD — being reconstructed. Not following brief.md's original plan for this day." }
+  ];
+
+  var STATUS_GLYPH = { blocked:"!", "needs-ref":"?", rest:"—", tbd:"…" };
+  function badgeText(day){ return day.hasPanel ? NOV6.badge : "Coming soon"; }
+  function badgeClass(day){ return day.hasPanel ? 'ready' : 'soon'; }
+  function jobTitle(job){ var i = job.indexOf(':'); return i===-1 ? job : job.slice(0,i).trim(); }
+  function jobDesc(job){ var i = job.indexOf(':'); return i===-1 ? "To be decided." : job.slice(i+1).trim(); }
+
+  var NOV6 = {
+    title: "Inventory showcase",
+    badge: "A peek at what's coming",
+    sub: "A quick snapshot to get people curious, with a save-the-date CTA",
+    videoUrl: "assets/video.mp4",
+    beats: [
+      // [start, end, title, reference(what the source video shows), forStella(what she films instead), hook(why it's filmed that way), thumb]
+      [0.0, 4.6, "Setup + the ask",
+        "Reference: static two-shot behind a counter; an off-camera voice asks a favor, she pauses, then asks back.",
+        "For Stella: she's doing something real at the market setup (arranging a shelf, placing an item). A helper, off camera, asks her to do something playful — not scripted, just a real ask.",
+        "Direct-address hook: a voice speaks straight at her out of nowhere, which is why it grabs attention. Curiosity hook: we're not told what the favor is yet, so we keep watching to find out.",
+        "assets/thumb-01.jpg"],
+      [4.6, 7.0, "The ask repeats, she agrees",
+        "Reference: the ask is repeated once; she smiles and sets the pitcher down.",
+        "For Stella: the helper repeats the ask; she sets down whatever she's holding, smiling, about to comply.",
+        "Confusion hook: \"Can I what?\" — her not understanding the first time is what makes it feel real instead of scripted. Delay hook: repeating the ask instead of answering it stretches out the payoff.",
+        "assets/thumb-02.jpg"],
+      [7.0, 7.5, "The clap (trigger)",
+        "Reference: she spreads both hands apart — the clap itself, the cut's trigger.",
+        "For Stella: her clap (or whatever gesture she picks) — this is the exact cut point the edit is timed to.",
+        "Pattern-interrupt hook: a sudden, physical action is a natural place for attention to spike — that's why the edit times its hardest cut to land exactly here, not on a count or a fade.",
+        "assets/thumb-03.jpg"],
+      [7.5, 7.9, "Montage 1",
+        "Reference: overhead shot of a plated dish and drinks.",
+        "For Stella: one clear, single item or corner of the space, held long enough to register.",
+        "Pace hook: the first fast cut lands right on the clap, so the new rhythm is felt, not just seen.",
+        "assets/thumb-04.jpg"],
+      [7.9, 8.3, "Montage 2",
+        "Reference: a shelf of branded bottles.",
+        "For Stella: a wider shot — a shelf, table, or full vignette.",
+        "Alternation hook: close-up to wide shot — changing scale, not just subject, is what keeps back-to-back cuts from feeling the same.",
+        "assets/thumb-05.jpg"],
+      [8.3, 8.7, "Montage 3",
+        "Reference: a hero toast-board shot.",
+        "For Stella: a close detail shot of something ready.",
+        "Alternation hook: back to tight and close after the wide shot — the swing between scales is what makes each half-second cut register as new.",
+        "assets/thumb-06.jpg"],
+      [8.7, 9.13, "Montage 4",
+        "Reference: a dish shot paired with a real signage card.",
+        "For Stella: another item paired with anything already set up nearby (a sign, a price card, a table setting).",
+        "Context hook: pairing the item with something already in frame (signage) packs in a bit of information, not just a pretty image, in under half a second.",
+        "assets/thumb-07.jpg"],
+      [9.13, 9.5, "Montage 5",
+        "Reference: a squeeze bottle mid-prep — a process shot.",
+        "For Stella: a process shot — hands actually doing something (adjusting, placing, styling).",
+        "Motion hook: hands actively doing something reads faster than a still object — motion is why this cut feels like it moves the montage forward instead of just adding another picture.",
+        "assets/thumb-08.jpg"],
+      [9.5, 9.93, "Montage 6",
+        "Reference: a hand setting a cup down on a table.",
+        "For Stella: a small human action with an item — setting something down, picking something up.",
+        "Human hook: a small human gesture breaks up a run of object shots — people register differently than products, which is why this one resets attention.",
+        "assets/thumb-09.jpg"],
+      [9.93, 10.7, "Montage 7",
+        "Reference: a stocked fridge/shelf, behind-the-scenes.",
+        "For Stella: a wider behind-the-scenes shot of the space mid-setup.",
+        "Scale hook: the widest shot in the run so far, after several close ones — a deliberate breather before the montage speeds back up.",
+        "assets/thumb-10.jpg"],
+      [10.7, 11.1, "Montage 8",
+        "Reference: a second hero-food shot (acai bowl).",
+        "For Stella: a second hero item or styled detail, different from montage 1.",
+        "Repeat-with-a-twist hook: the same shot type as montage 1 (a hero item) but a different subject — familiar framing, new content, so it still reads as fresh.",
+        "assets/thumb-11.jpg"],
+      [11.1, 11.43, "Montage 9",
+        "Reference: a second angle on the earlier toast board.",
+        "For Stella: a second angle on something already shown, or a different corner.",
+        "Callback hook: revisits something already shown, from a new angle — it's the one cut that rewards someone who's actually paying attention, not just half-watching.",
+        "assets/thumb-12.jpg"],
+      [11.43, 11.8, "Montage 10",
+        "Reference: a second process shot (grilling bread).",
+        "For Stella: a second process shot near the end, to keep the energy up.",
+        "Motion hook, again: a second hands-in-motion shot right before the end, placed there on purpose so the pace doesn't go flat before the close.",
+        "assets/thumb-13.jpg"],
+      [11.8, 12.13, "Montage 11",
+        "Reference: a clean lineup of three branded cups.",
+        "For Stella: a clean, simple lineup shot — several items together.",
+        "Payoff hook: a calm, orderly shot after eleven rapid cuts — the visual exhale that makes the viewer feel like they've arrived somewhere, right before the close.",
+        "assets/thumb-14.jpg"],
+      [12.13, 12.65, "Montage 12 — closing shot",
+        "Reference: pulls back to the storefront exterior, the clip's last frame.",
+        "For Stella: pull back to the whole space, or the shed from outside — the last frame, nothing after it.",
+        "Close-out hook: pulling back to the real, whole space is what grounds a fast montage in an actual place you could walk into — it's the last thing the eye sees, on purpose.",
+        "assets/thumb-15.jpg"]
+    ],
+    fixed: [
+      "The ask/hesitation plays out in real time before the payoff",
+      "A real physical cue times the cut, not an arbitrary edit point",
+      "The montage moves fast — most shots run under a second",
+      "No single montage shot repeats what the one before it showed"
+    ],
+    free: [
+      "What the trigger gesture is",
+      "What's actually shown in each montage shot",
+      "Exact wording of the on-screen CTA text",
+      "Exact wording of the invite line"
+    ],
+    openItem: "The reference ends cold, no on-screen CTA — but every post needs one. Fix: no voiceover needed. Add on-screen text over the final montage shot (ref 12.13–12.65s) reading something like \"Read the caption\" / \"Check the caption\" — pointing to the written CTA rather than adding spoken audio. No new shot, no change to the audio.",
+    caption: "Sat, Nov 7 · 10am–2pm · Wake Forest, NC\n\nA peek at what's coming.\n[Stella's own line]\nSave the date — come visit us, 10–2.",
+    checks: [
+      "Is line 1 the date · time · place?",
+      "Does it do its one job, and nothing else?",
+      "Does it promise anything that isn't CONFIRMED?",
+      "Watched with sound off, does it still make sense?",
+      "Is every featured vendor tagged or invited? (N/A — no vendor featured)"
+    ]
+  };
+
+  function fmt(t){
+    var m = Math.floor(t/60), s = Math.floor(t%60);
+    return m + ":" + (s<10 ? "0"+s : s);
+  }
+
+  function dateLabel(iso){
+    var d = new Date(iso + "T12:00:00");
+    return d.toLocaleDateString("en-US", { weekday:"short", month:"short", day:"numeric" });
+  }
+  function crumbLabel(iso){
+    var d = new Date(iso + "T12:00:00");
+    return d.toLocaleDateString("en-US", { month:"short", day:"numeric" }).toUpperCase();
+  }
+
+  function todayInTZ(){
+    var s = new Date().toLocaleString("en-US", { timeZone: TODAY_TZ });
+    var d = new Date(s);
+    d.setHours(0,0,0,0);
+    return d;
+  }
+
+  function renderNext(){
+    var today = todayInTZ();
+    var box = document.getElementById('next');
+    var todayISO = today.toISOString().slice(0,10);
+    var match = null;
+    for (var i=0;i<DAYS.length;i++){ if (DAYS[i].date === todayISO){ match = DAYS[i]; break; } }
+
+    if (match && match.status === "rest"){
+      box.innerHTML =
+        '<span class="next-badge">Today — rest day</span>' +
+        '<div class="next-main"><p class="next-title">No post today — prep only</p>' +
+        '<p class="next-sub">'+match.note+'</p></div>';
+      return;
+    }
+    if (match){
+      box.innerHTML =
+        '<span class="next-badge">Today\'s post</span>' +
+        '<div class="next-main"><p class="next-eyebrow">'+dateLabel(match.date)+'</p>' +
+        '<p class="next-title serif">'+jobTitle(match.job)+'</p>' +
+        '<p class="next-sub">'+jobDesc(match.job)+'</p></div>';
+      return;
+    }
+    // find next upcoming non-rest day
+    var next = null, days = 0;
+    for (var j=0;j<DAYS.length;j++){
+      var d = new Date(DAYS[j].date + "T00:00:00");
+      if (d > today && DAYS[j].status !== "rest"){
+        if (!next){ next = DAYS[j]; days = Math.round((d - today) / 86400000); }
+      }
+    }
+    if (next){
+      box.innerHTML =
+        '<span class="next-badge">Next post</span>' +
+        '<div class="next-main"><p class="next-eyebrow">'+dateLabel(next.date)+'</p>' +
+        '<p class="next-title serif">'+jobTitle(next.job)+'</p>' +
+        '<p class="next-sub">'+jobDesc(next.job)+'</p></div>' +
+        '<span class="next-days">'+days+' day'+(days===1?'':'s')+' away</span>';
+    } else {
+      box.innerHTML = '<div class="next-main"><p class="next-title serif">All five post days have passed or are built.</p></div>';
+    }
+  }
+
+  var activeFilter = 'all';
+
+  function renderPills(){
+    var bar = document.getElementById('pillbar');
+    var opts = [['all','All'],['ready',"This week's post"],['soon','Coming soon']];
+    bar.innerHTML = '';
+    opts.forEach(function(o){
+      var p = document.createElement('button');
+      p.className = 'pill' + (activeFilter===o[0] ? ' active' : '');
+      p.textContent = o[1];
+      p.addEventListener('click', function(){ activeFilter = o[0]; renderPills(); applyFilter(); });
+      bar.appendChild(p);
+    });
+  }
+
+  function applyFilter(){
+    var cards = document.querySelectorAll('.day');
+    cards.forEach(function(c){
+      var s = c.getAttribute('data-status');
+      c.classList.toggle('dim', activeFilter !== 'all' && s !== activeFilter);
+    });
+  }
+
+  var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="11" fill="rgba(20,12,10,.55)"/><path d="M10 8.3v7.4l6.2-3.7z"/></svg>';
+
+  function renderWeek(){
+    var wk = document.getElementById('week');
+    wk.innerHTML = '';
+    DAYS.forEach(function(d){
+      var card = document.createElement('button');
+      card.className = 'day' + (d.hasPanel ? '' : ' static');
+      card.setAttribute('data-status', badgeClass(d));
+
+      var media;
+      if (d.hasPanel){
+        var durS = Math.ceil(NOV6.beats[NOV6.beats.length-1][1]);
+        media = '<div class="day-media"><img src="'+NOV6.beats[0][6]+'" alt="">' +
+          '<div class="play-ov">'+PLAY_SVG+'</div>' +
+          '<span class="dur">0:'+(durS<10?'0'+durS:durS)+'</span></div>';
+      } else {
+        media = '<div class="day-media"><div class="media-empty">'+(STATUS_GLYPH[d.status]||'')+'</div></div>';
+      }
+
+      card.innerHTML =
+        '<div class="day-top"><span class="day-dow">'+d.label.toUpperCase()+'</span>' +
+        '<span class="day-num serif">'+(new Date(d.date+"T12:00:00")).getDate()+'</span></div>' +
+        media +
+        '<div class="day-info"><p class="day-job">'+d.job+'</p>' +
+        '<span class="status '+badgeClass(d)+'">'+badgeText(d)+'</span></div>';
+      card.addEventListener('click', function(){ openModal(d); });
+      wk.appendChild(card);
+    });
+    applyFilter();
+  }
+
+  var modalIdx = -1;
+
+  function openModal(day){
+    modalIdx = DAYS.indexOf(day);
+    var overlay = document.getElementById('overlay');
+    renderModalFor(modalIdx);
+    overlay.hidden = false;
+  }
+  function closeModal(){ document.getElementById('overlay').hidden = true; document.getElementById('modal').innerHTML = ''; }
+
+  function renderModalFor(idx){
+    var modal = document.getElementById('modal');
+    var day = DAYS[idx];
+    if (day.hasPanel){
+      renderPanel(modal, day, idx);
+    } else {
+      renderSimple(modal, day, idx);
+    }
+  }
+
+  function headCtl(idx){
+    return '<div class="head-ctl">' +
+      '<button class="nav-btn" id="mprev" '+(idx<=0?'disabled':'')+' title="Previous day">&lsaquo;</button>' +
+      '<button class="nav-btn" id="mnext" '+(idx>=DAYS.length-1?'disabled':'')+' title="Next day">&rsaquo;</button>' +
+      '<button class="close" id="mclose">&times;</button>' +
+      '</div>';
+  }
+  function wireHeadCtl(idx){
+    var p = document.getElementById('mprev'), n = document.getElementById('mnext');
+    if (p) p.addEventListener('click', function(){ if (idx>0){ modalIdx=idx-1; renderModalFor(modalIdx); } });
+    if (n) n.addEventListener('click', function(){ if (idx<DAYS.length-1){ modalIdx=idx+1; renderModalFor(modalIdx); } });
+    document.getElementById('mclose').addEventListener('click', closeModal);
+  }
+
+  function renderSimple(modal, day, idx){
+    modal.innerHTML =
+      '<div class="modal-head">' +
+        '<div><p class="crumb">Content calendar / '+crumbLabel(day.date)+'</p>' +
+        '<h2 class="modal-title">'+dateLabel(day.date)+'</h2>' +
+        '<p class="modal-sub">'+day.job+'</p></div>' +
+        headCtl(idx) +
+      '</div>' +
+      '<div class="modal-body simple-body">' +
+      '<p class="k">Status</p><span class="status status-lg '+badgeClass(day)+'">'+badgeText(day)+'</span>' +
+      '<p class="k">What it\'s waiting on</p><p>'+day.note+'</p>' +
+      '</div>';
+    wireHeadCtl(idx);
+  }
+
+  function renderPanel(modal, day, idx){
+    modal.innerHTML =
+      '<div class="modal-head">' +
+        '<div><p class="crumb">Content calendar / '+crumbLabel(day.date)+'</p>' +
+        '<h2 class="modal-title serif">'+NOV6.title+'</h2>' +
+        '<p class="modal-sub">'+NOV6.sub+'</p></div>' +
+        headCtl(idx) +
+      '</div>' +
+      '<div class="modal-body">' +
+      '<div class="stack">' +
+
+        '<div>' +
+          '<div class="top-row">' +
+            '<div class="video-col">' +
+              '<video id="v" controls playsinline src="'+NOV6.videoUrl+'"></video>' +
+            '</div>' +
+            '<div class="companion-col">' +
+              '<div class="card" id="now">' +
+                '<p class="now-time">Playing now · <span id="now-time"></span></p>' +
+                '<p class="now-title serif" id="now-title"></p>' +
+                '<div class="now-row"><span class="now-icon b">R</span><span class="now-text"><b>In the reference</b><span id="now-ref"></span></span></div>' +
+                '<div class="now-row"><span class="now-icon">S</span><span class="now-text"><b>For Stella</b><span id="now-stella"></span></span></div>' +
+                '<div class="now-row"><span class="now-icon b">H</span><span class="now-text"><b>The hook — why it\'s filmed this way</b><span id="now-hook"></span></span></div>' +
+              '</div>' +
+              '<div class="card">' +
+                '<p class="now-time">What makes this work</p>' +
+                '<div class="icolist" id="fixedlist"></div>' +
+              '</div>' +
+              '<div class="card">' +
+                '<p class="now-time">What to look for</p>' +
+                '<div class="icolist" id="freelist"></div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div>' +
+          '<div class="tabs">' +
+            '<div class="tab active" id="tab-film">Filming plan</div>' +
+            '<div class="tab" id="tab-edit">Edit timeline</div>' +
+          '</div>' +
+          '<div id="view-film"><p class="section-hint">What Stella actually films, in order. Each beat shows what the reference does and what she does instead.</p><div id="filmlist"></div></div>' +
+          '<div id="view-edit" hidden><p class="section-hint">Tap any frame to jump the video there.</p><div id="sblist"></div></div>' +
+        '</div>' +
+
+        '<div>' +
+          '<div class="open-item"><b>Open item:</b> '+NOV6.openItem+'</div>' +
+          '<div class="meta">' +
+            '<p class="k">Caption draft</p>' +
+            '<div class="caption-box"><button class="copy-btn" id="copybtn">Copy</button><span id="capbox" style="white-space:pre-line"></span></div>' +
+            '<p class="k">Pre-post check</p><div id="checklist"></div>' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' +
+      '</div>';
+
+    wireHeadCtl(idx);
+
+    var v = document.getElementById('v');
+    var rows = [];
+
+    var sb = document.getElementById('sblist');
+    NOV6.beats.forEach(function(b, i){
+      var row = document.createElement('button');
+      row.className = 'sb-row';
+      row.innerHTML =
+        '<span class="sb-num">'+(i+1)+'</span>' +
+        '<img class="sb-thumb" src="'+b[6]+'" alt="">' +
+        '<span class="sb-text"><span class="sb-time">'+fmt(b[0])+'&ndash;'+fmt(b[1])+'</span>' +
+        '<span class="sb-title">'+b[2]+'</span>' +
+        '<span class="sb-film">'+b[4]+'</span></span>';
+      row.addEventListener('click', function(){
+        try{ v.currentTime = b[0]; v.play(); }catch(e){}
+      });
+      sb.appendChild(row);
+      rows.push(row);
+    });
+
+    var fl = document.getElementById('filmlist');
+    NOV6.beats.forEach(function(b, i){
+      var row = document.createElement('button');
+      row.className = 'sb-row';
+      row.innerHTML =
+        '<span class="sb-num">'+(i+1)+'</span>' +
+        '<img class="sb-thumb" src="'+b[6]+'" alt="">' +
+        '<span class="sb-text"><span class="sb-time">'+fmt(b[0])+'&ndash;'+fmt(b[1])+'</span>' +
+        '<span class="sb-title">'+b[2]+'</span>' +
+        '<span class="sb-film"><b>'+b[4]+'</b></span></span>';
+      row.addEventListener('click', function(){
+        try{ v.currentTime = b[0]; v.play(); }catch(e){}
+      });
+      fl.appendChild(row);
+    });
+
+    document.getElementById('tab-film').addEventListener('click', function(){
+      document.getElementById('tab-film').classList.add('active');
+      document.getElementById('tab-edit').classList.remove('active');
+      document.getElementById('view-film').hidden = false;
+      document.getElementById('view-edit').hidden = true;
+    });
+    document.getElementById('tab-edit').addEventListener('click', function(){
+      document.getElementById('tab-edit').classList.add('active');
+      document.getElementById('tab-film').classList.remove('active');
+      document.getElementById('view-edit').hidden = false;
+      document.getElementById('view-film').hidden = true;
+    });
+
+    var curIdx = -1;
+    function render(i){
+      if (i === curIdx) return;
+      curIdx = i;
+      var b = NOV6.beats[i];
+      document.getElementById('now-time').textContent = fmt(b[0])+'–'+fmt(b[1]);
+      document.getElementById('now-title').textContent = b[2];
+      document.getElementById('now-ref').textContent = b[3];
+      document.getElementById('now-stella').textContent = b[4];
+      document.getElementById('now-hook').textContent = b[5];
+      rows.forEach(function(r, ri){ r.classList.toggle('active', ri===i); });
+    }
+    v.addEventListener('timeupdate', function(){
+      var t = v.currentTime;
+      for (var i=NOV6.beats.length-1;i>=0;i--){ if (t >= NOV6.beats[i][0]){ render(i); return; } }
+      render(0);
+    });
+    render(0);
+
+    document.getElementById('capbox').textContent = NOV6.caption;
+    document.getElementById('copybtn').addEventListener('click', function(){
+      try{ navigator.clipboard.writeText(NOV6.caption); this.textContent = 'Copied'; var btn=this; setTimeout(function(){ btn.textContent='Copy'; }, 1500); }catch(e){}
+    });
+
+    var fx = document.getElementById('fixedlist');
+    fx.innerHTML = NOV6.fixed.map(function(t){ return '<div class="ico-row"><span class="ico-badge ok">&check;</span><span class="ico-text">'+t+'</span></div>'; }).join('');
+    var fr = document.getElementById('freelist');
+    fr.innerHTML = NOV6.free.map(function(t){ return '<div class="ico-row"><span class="ico-badge free">&bull;</span><span class="ico-text">'+t+'</span></div>'; }).join('');
+
+    var CKEY = 'calendar-nov6-checks';
+    var state = {};
+    try{ state = JSON.parse(localStorage.getItem(CKEY) || '{}'); }catch(e){ state = {}; }
+    var cl = document.getElementById('checklist');
+    NOV6.checks.forEach(function(text, i){
+      var row = document.createElement('div');
+      row.className = 'check' + (state[i] ? ' done' : '');
+      var id = 'chk'+i;
+      row.innerHTML = '<input type="checkbox" id="'+id+'" '+(state[i]?'checked':'')+'><label for="'+id+'">'+text+'</label>';
+      var box = row.querySelector('input');
+      box.addEventListener('change', function(){
+        row.classList.toggle('done', box.checked);
+        state[i] = box.checked;
+        try{ localStorage.setItem(CKEY, JSON.stringify(state)); }catch(e){}
+      });
+      cl.appendChild(row);
+    });
+  }
+
+  document.getElementById('overlay').addEventListener('click', function(e){
+    if (e.target.id === 'overlay') closeModal();
+  });
+
+  renderNext();
+  renderPills();
+  renderWeek();
+})();
+</script>
+</body>
+</html>
